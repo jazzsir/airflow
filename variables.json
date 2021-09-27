@@ -1,0 +1,22 @@
+{
+    "jutopia_cluster_name": "iu",
+    "jutopia_cluster_user_id": "None",
+    "jutopia_cluster_user_password": "None",
+    "jutopia_cluster_keytab_base64": "None",
+    "jutopia_git_access_token": "None",
+    "jutopia_git_organization": "None",
+    "jutopia_git_repo": "None",
+    "jutopia_git_branch": "None",
+    "jutopia_nsml_password": "None",
+    "jutopia_nsml_username": "None",
+    "jutopia_vos_access_key": "None",
+    "jutopia_vos_secret_key": "None",
+    "jutopia_vos_service_endpoint": "https://line-objects-internal.com",
+    "jutopia_vos_viewer_url": "None",
+    "jutopia_vos_bucket_result_nb": "None",
+    "jutopia_kubeconfig": "None",
+    "jutopia_sharedfs_project_id": "None",
+    "jutopia_sharedfs_monitor_hosts": "None",
+    "jutopia_sharedfs_mount_path": "None",
+    "jutopia_sharedfs_access_key": "None"
+}

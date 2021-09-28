@@ -456,6 +456,10 @@ RUN usermod -g 0 airflow -G ${AIRFLOW_GID}
 
 USER ${AIRFLOW_UID}
 
+# Airflow url join bug fixed
+COPY plugin/json_client.py /tmp/json_client.py
+RUN (cp /tmp/json_client.py "$(pip show apache-airflow | grep Location | awk '{print $2}')/airflow/api/client/json_client.py")
+
 LABEL org.apache.airflow.distro="debian" \
   org.apache.airflow.distro.version="buster" \
   org.apache.airflow.module="airflow" \

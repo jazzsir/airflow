@@ -437,10 +437,6 @@ COPY --chown=airflow:root --from=airflow-build-image /root/.local "${AIRFLOW_USE
 COPY --chown=airflow:root scripts/in_container/prod/entrypoint_prod.sh /entrypoint
 COPY --chown=airflow:root scripts/in_container/prod/clean-logs.sh /clean-logs
 
-# Airflow url join bug fixed
-COPY json_client.py /tmp/json_client.py
-RUN (cp /tmp/json_client.py "$(pip show apache-airflow | grep Location | awk '{print $2}')/airflow/api/client/json_client.py")
-
 # Make /etc/passwd root-group-writeable so that user can be dynamically added by OpenShift
 # See https://github.com/apache/airflow/issues/9248
 

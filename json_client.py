@@ -47,48 +47,51 @@ class Client(api_client.Client):
 
         return resp.json()
 
-    def trigger_dag(self, dag_id, run_id=None, conf=None, execution_date=None):
-        endpoint = '/api/experimental/dags/{}/dag_runs'.format(dag_id)
+    def trigger_dag(self, dag_id, run_id=None, conf=None, execution_date=None, state="queued"):
+        endpoint = '/api/v1/dags/{}/dagRuns'.format(dag_id)
         url = self._api_base_url + endpoint
         data = self._request(url, method='POST',
                              json={
-                                 "run_id": run_id,
-                                 "conf": conf,
+                                 "dag_run_id": run_id,
                                  "execution_date": execution_date,
+                                 "state": "queued",
+                                 "conf": conf,
                              })
         return data['message']
 
-    def delete_dag(self, dag_id):
-        endpoint = '/api/experimental/dags/{}/delete_dag'.format(dag_id)
+    def delete_dag(self, dag_id, run_id=None):
+        endpoint = '/api/v1/dags/{}/dagRuns/{}'.format(dag_id, run_id)
         url = self._api_base_url + endpoint
         data = self._request(url, method='DELETE')
         return data['message']
 
     def get_pool(self, name):
-        endpoint = '/api/experimental/pools/{}'.format(name)
+        endpoint = '/api/v1/pools/{}'.format(name)
         url = self._api_base_url + endpoint
         pool = self._request(url)
         return pool['pool'], pool['slots'], pool['description']
 
     def get_pools(self):
-        endpoint = '/api/experimental/pools'
+        endpoint = '/api/v1/pools'
         url = self._api_base_url + endpoint
         pools = self._request(url)
         return [(p['pool'], p['slots'], p['description']) for p in pools]
 
     def create_pool(self, name, slots, description):
-        endpoint = '/api/experimental/pools'
+        endpoint = '/api/v1/pools'
         url = self._api_base_url + endpoint
         pool = self._request(url, method='POST',
                              json={
                                  'name': name,
                                  'slots': slots,
-                                 'description': description,
                              })
         return pool['pool'], pool['slots'], pool['description']
 
+
+    https://airflow.apache.org/api/v1/pools/{pool_name}
+
     def delete_pool(self, name):
-        endpoint = '/api/experimental/pools/{}'.format(name)
+        endpoint = '/api/v1/pools/{}'.format(name)
         url = self._api_base_url + endpoint
         pool = self._request(url, method='DELETE')
         return pool['pool'], pool['slots'], pool['description']
